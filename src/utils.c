@@ -6,7 +6,14 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:39 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/06/11 12:40:40 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:27:24 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
+void	print_error(char *message)
+{
+	ft_printf("%s\n", message);
+	exit(EXIT_FAILURE);
+}
