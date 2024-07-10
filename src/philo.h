@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/10 16:34:06 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:22:07 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define PHILO_H
 
 # include "../lib/libft/libft.h"
+
+typedef struct s_table	t_table;
 
 typedef struct s_fork
 {
@@ -25,7 +27,7 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int	id;
+	int			id;
 	long		meals_eaten;
 	long		last_meal; // time passed from last meal
 	bool		full;
@@ -35,9 +37,9 @@ typedef struct s_philo
 	t_table		*table;
 }				t_philo;
 
-typedef struct s_table
+struct s_table
 {
-	long	philo_number;
+	long	philo_nbr;
 	long	time_to_die;
 	long	time_to_eat;
 	long	time_to_sleep;
@@ -46,10 +48,10 @@ typedef struct s_table
 	bool	end_sim; // When a philo dies or all philos are full
 	t_fork	*forks; // array to forks
 	t_philo *philos; // array of philos
-}				t_table;
-
+};
 
 /*---------------PARSE----------------*/
 void	print_error(char *message);
+void	parse_input(t_table *table, char **argv);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:33:20 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/10 16:32:58 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:59:05 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_list
  * @return int 
  */
 int		ft_atoi(const char *str);
+long	ft_atol(char *str);
 /**
  * @brief The bzero() function writes n zeroed bytes to the string s.
  * If n is zero, bzero() does nothing.
