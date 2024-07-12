@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/10 18:22:07 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/13 00:10:44 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_table	t_table;
 typedef struct s_fork
 {
 	pthread_mutex_t	fork;
-	pthread_mutex_t fork_id;
+	int 			fork_id;
 }				t_fork;
 
 // Aqui va lo que vamos a pasar por argumentos
@@ -31,8 +31,8 @@ typedef struct s_philo
 	long		meals_eaten;
 	long		last_meal; // time passed from last meal
 	bool		full;
-	t_fork		*r_fork;
-	t_fork		*l_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	pthread_t	thread_id; // a philo is a thread
 	t_table		*table;
 }				t_philo;
@@ -50,8 +50,24 @@ struct s_table
 	t_philo *philos; // array of philos
 };
 
+typedef enum e_mcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH,
+}			t_mcode;
+
 /*---------------PARSE----------------*/
 void	print_error(char *message);
 void	parse_input(t_table *table, char **argv);
+void	*protected_malloc(size_t bytes);
+void	mutex_handle(pthread_t *mutex, t_mcode mcode);
+void	thread_handle(pthread_t *thread, void *(*foo)(void *),
+		void *data, t_mcode mcode);
+void	data_init(t_table *table);
 
 #endif

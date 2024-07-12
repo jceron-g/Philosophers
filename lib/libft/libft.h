@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 13:33:20 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/10 17:59:05 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:40:22 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdbool.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <pthread.h>
 # include <sys/wait.h>
