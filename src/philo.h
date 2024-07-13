@@ -6,14 +6,23 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 00:10:44 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:20:47 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "../lib/libft/libft.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <stdbool.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <pthread.h>
+# include <sys/wait.h>
 
 typedef struct s_table	t_table;
 
@@ -61,13 +70,18 @@ typedef enum e_mcode
 	DETACH,
 }			t_mcode;
 
-/*---------------PARSE----------------*/
+/*------------------PARSE-------------------*/
 void	print_error(char *message);
 void	parse_input(t_table *table, char **argv);
+/*------------------TOOLS-------------------*/
+void	ft_putstr_fd(char *s, int fd);
+long	ft_atol(char *str);
+/*---------------SAFE_FUNCTIONS----------------*/
 void	*protected_malloc(size_t bytes);
-void	mutex_handle(pthread_t *mutex, t_mcode mcode);
+void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode);
 void	thread_handle(pthread_t *thread, void *(*foo)(void *),
 		void *data, t_mcode mcode);
+/*------------------INIT-------------------*/
 void	data_init(t_table *table);
 
 #endif

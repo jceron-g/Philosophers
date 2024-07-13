@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:52 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/10 17:11:37 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:21:01 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ int main (int argc, char **argv)
 		//2)
 		data_init(&table);
 		//3)
-		dinner_start(&table);
+		//dinner_start(&table);
 		//4) No leaks philos are full or 1 philo dies
-		clean(&table);
+		//clean(&table);
 	}
 	else
-	{
-		print_error("Wrong input\n");
-	}
+		print_error("Wrong input.\n");
 }

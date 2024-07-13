@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:56:48 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/12 23:30:53 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/13 20:45:48 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ static	void check_mutex_error(int status, t_mcode mcode)
 	if (status == 0)
 		return ;
 	if (status == EINVAL && (LOCK == mcode || UNLOCK == mcode || DESTROY == mcode))
-		print_error("The value specified by mutex is invalid.");
+		print_error("The value specified by mutex is invalid.\n");
 	else if (status == EINVAL && INIT == mcode)
-		print_error("The value specified by atrr is invalid.");
+		print_error("The value specified by atrr is invalid.\n");
 	else if (status == EDEADLK)
-		print_error("A deadlock would occur if the thread blocked waiting for mutex.");
+		print_error("A deadlock would occur if the thread blocked waiting for mutex.\n");
 	else if (status == EPERM)
-		print_error("The current thread does not hold a lock on mutex.");
+		print_error("The current thread does not hold a lock on mutex.\n");
 	else if (status == ENOMEM)
-		print_error("The process cannot allocat enough memory to create another mutex.");
+		print_error("The process cannot allocat enough memory to create another mutex.\n");
 	else if (status == EBUSY)
-		print_error("Mutex is locked.");
+		print_error("Mutex is locked.\n");
 }
 
-void	mutex_handle(pthread_t *mutex, t_mcode mcode)
+void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode)
 {
 	if (LOCK == mcode)
 		check_mutex_error(pthread_mutex_lock(mutex), mcode);
@@ -55,7 +55,7 @@ void	mutex_handle(pthread_t *mutex, t_mcode mcode)
 	else if (DESTROY == mcode)
 		check_mutex_error(pthread_mutex_destroy(mutex), mcode);
 	else
-		print_error("Wrong code for mutex handle");
+		print_error("Wrong code for mutex handle.\n");
 }
 /*Para hilos se hara lo mismo*/
 
@@ -64,19 +64,19 @@ static	void check_thread_error(int status, t_mcode mcode)
 	if (status == 0)
 		return ;
 	if (status == EAGAIN)
-		print_error("No resource to create another thread.");
+		print_error("No resource to create another thread.\n");
 	else if (status == EPERM)
-		print_error("The caller does ot have appropriate permission.");
+		print_error("The caller does ot have appropriate permission.\n");
 	else if (status == EINVAL && CREATE == mcode)
-		print_error("The value specified by attr is invalid.");
+		print_error("The value specified by attr is invalid.\n");
 	else if (status == EINVAL && (JOIN == mcode || DETACH == mcode))
-		print_error("The value specified by thread is not joinable.");
+		print_error("The value specified by thread is not joinable\n.");
 	else if (status == ESRCH)
 		print_error("No thread could be found corresponding to that"
-		"specified by the given thread ID, thread.");
+		"specified by the given thread ID, thread.\n");
 	else if (status == EDEADLK)
 		print_error("A deadlock was detected or the value of"
-		"thread specifies the calling thread.");
+		"thread specifies the calling thread.\n");
 }
 void	thread_handle(pthread_t *thread, void *(*foo)(void *),
 		void *data, t_mcode mcode)
@@ -88,5 +88,5 @@ void	thread_handle(pthread_t *thread, void *(*foo)(void *),
 	else if (DETACH == mcode)
 		check_thread_error(pthread_detach(*thread), mcode);
 	else
-		print_error("Wrong code for thread handle");
+		print_error("Wrong code for thread handle.\n");
 }
