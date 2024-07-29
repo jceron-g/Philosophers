@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:39 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 21:21:06 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/24 11:56:40 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_putstr_fd(char *s, int fd)
 void	print_error(char *message)
 {
 	ft_putstr_fd(message, 2);
-	return(EXIT_FAILURE);
 }
 
 static void	check_limits(long number)

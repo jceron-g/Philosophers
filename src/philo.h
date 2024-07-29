@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 21:20:47 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:52:46 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,17 @@ typedef struct s_philo
 
 struct s_table
 {
-	long	philo_nbr;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	num_limit_meals;
-	long	start_sim;
-	bool	end_sim; // When a philo dies or all philos are full
-	t_fork	*forks; // array to forks
-	t_philo *philos; // array of philos
+	long			philo_nbr;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			num_limit_meals;
+	long			start_sim;
+	bool			end_sim; // When a philo dies or all philos are full
+	bool			threads_ready; // Lo necesitamos para sincronizar los philo
+	pthread_mutex_t	mutex_table; // Lo necesiamos para evitar data races mientras leemos la mesa
+	t_fork			*forks; // array to forks
+	t_philo 		*philos; // array of philos
 };
 
 typedef enum e_mcode
