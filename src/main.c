@@ -6,16 +6,17 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:52 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 21:21:01 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:45:50 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 //./philo 5(philo) 800(time2die) 200(time2eat) 200(time2sleep) [5] (nº meals)
-int main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_table table;
+	t_table	table;
+
 	if (argc == 5 | argc == 6)
 	{
 		//correct input

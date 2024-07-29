@@ -6,15 +6,15 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:28:27 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 21:55:41 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/29 11:34:43 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static	void assign_forks(t_philo *philo, t_fork *forks, int pos)
+static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 {
-	int philo_number;
+	int	philo_number;
 
 	philo_number = philo->table->philo_nbr;
 	/*Tenemos que tener en cuenta los deadlocks es decir los casos
@@ -34,11 +34,11 @@ static	void assign_forks(t_philo *philo, t_fork *forks, int pos)
 	}
 }
 
-static	void philo_init(t_table *table)
+static void	philo_init(t_table *table)
 {
 	int		i;
 	t_philo	*philo;
-	
+
 	i = 0;
 	while (i < table->philo_nbr)
 	{
@@ -54,14 +54,14 @@ static	void philo_init(t_table *table)
 void	data_init(t_table *table)
 {
 	int	i;
-	
+
 	i = 0;
 	table->end_sim = false;
 	table->threads_ready = false;
 	table->philos = protected_malloc(sizeof(t_philo) * table->philo_nbr);
 	mutex_handle(&table->mutex_table, INIT);
 	table->forks = protected_malloc(sizeof(t_fork) * table->philo_nbr);
-	while(i < table->philo_nbr)
+	while (i < table->philo_nbr)
 	{
 		mutex_handle(&table->forks[i].fork, INIT);
 		table->forks[i].fork_id = i;

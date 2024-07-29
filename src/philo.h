@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 21:52:46 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:47:19 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_table	t_table;
 typedef struct s_fork
 {
 	pthread_mutex_t	fork;
-	int 			fork_id;
+	int				fork_id;
 }				t_fork;
 
 // Aqui va lo que vamos a pasar por argumentos
@@ -56,7 +56,7 @@ struct s_table
 	long			start_sim;
 	bool			end_sim; // When a philo dies or all philos are full
 	bool			threads_ready; // Lo necesitamos para sincronizar los philo
-	pthread_mutex_t	mutex_table; // Lo necesiamos para evitar data races mientras leemos la mesa
+	pthread_mutex_t	mutex_table; // Lo necesitamos para evitar data races mientras leemos la mesa
 	t_fork			*forks; // array to forks
 	t_philo 		*philos; // array of philos
 };
