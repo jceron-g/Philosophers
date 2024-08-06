@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 21:56:48 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/29 11:34:24 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:57:26 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@ void	*protected_malloc(size_t bytes)
 		print_error("Error during malloc");
 	return (aux);
 }
-/* Estas funciones se encargan de proteger los mutex mediante el codigo
-de error que aparecen en el man para los distintos tipos de pthread que hay
-ya sea lock, init etc etc con la llamada a status una vez el pthread devuelva el
-numero correcto se hará el comando que se haya pedido segun el Mutex code (mcode)*/
 
 static void	check_mutex_error(int status, t_mcode mcode)
 {
@@ -60,7 +56,6 @@ void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode)
 	else
 		print_error("Wrong code for mutex handle.\n");
 }
-/*Para hilos se hara lo mismo*/
 
 static void	check_thread_error(int status, t_mcode mcode)
 {

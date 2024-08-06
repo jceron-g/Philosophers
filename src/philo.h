@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/29 12:47:19 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:59:16 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <string.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include <stdbool.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <pthread.h>
@@ -38,8 +37,8 @@ typedef struct s_philo
 {
 	int			id;
 	long		meals_eaten;
-	long		last_meal; // time passed from last meal
-	bool		full;
+	long		last_meal_time; // time passed from last meal
+	int			full;
 	t_fork		*first_fork;
 	t_fork		*second_fork;
 	pthread_t	thread_id; // a philo is a thread
@@ -54,11 +53,11 @@ struct s_table
 	long			time_to_sleep;
 	long			num_limit_meals;
 	long			start_sim;
-	bool			end_sim; // When a philo dies or all philos are full
-	bool			threads_ready; // Lo necesitamos para sincronizar los philo
+	int				end_sim; // When a philo dies or all philos are full
+	int				threads_ready; // Lo necesitamos para sincronizar los philo
 	pthread_mutex_t	mutex_table; // Lo necesitamos para evitar data races mientras leemos la mesa
 	t_fork			*forks; // array to forks
-	t_philo 		*philos; // array of philos
+	t_philo			*philos; // array of philos
 };
 
 typedef enum e_mcode
@@ -72,18 +71,24 @@ typedef enum e_mcode
 	DETACH,
 }			t_mcode;
 
-/*------------------PARSE-------------------*/
+/*---------------------PARSE----------------------*/
 void	print_error(char *message);
 void	parse_input(t_table *table, char **argv);
-/*------------------TOOLS-------------------*/
+/*---------------------TOOLS----------------------*/
 void	ft_putstr_fd(char *s, int fd);
 long	ft_atol(char *str);
-/*---------------SAFE_FUNCTIONS----------------*/
+/*----------------SAFE_FUNCTIONS----------------*/
 void	*protected_malloc(size_t bytes);
 void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode);
-void	thread_handle(pthread_t *thread, void *(*foo)(void *),
-		void *data, t_mcode mcode);
-/*------------------INIT-------------------*/
+void	thread_handle(pthread_t *thread,
+			void *(*foo)(void *), void *data, t_mcode mcode);
+/*------------------INIT------------------------*/
 void	data_init(t_table *table);
+/*-----------------GET AND SET------------------*/
+void	set_int(pthread_mutex_t *mutex, int *dest, int value);
+void	set_long(pthread_mutex_t *mutex, long *dest, long value);
+int		get_int(pthread_mutex_t *mutex, int *value);
+long	get_long(pthread_mutex_t *mutex, long *value);
+int		simulation_finished(t_table *table);
 
 #endif
