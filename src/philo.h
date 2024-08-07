@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/06 13:59:16 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:22:51 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <pthread.h>
 # include <sys/wait.h>
+# include <sys/time.h>
 
 typedef struct s_table	t_table;
 
@@ -56,6 +57,7 @@ struct s_table
 	int				end_sim; // When a philo dies or all philos are full
 	int				threads_ready; // Lo necesitamos para sincronizar los philo
 	pthread_mutex_t	mutex_table; // Lo necesitamos para evitar data races mientras leemos la mesa
+	pthread_mutex_t	write_lock; // Va a ser nuestro mutex para poder ir escribiendo
 	t_fork			*forks; // array to forks
 	t_philo			*philos; // array of philos
 };
@@ -71,12 +73,31 @@ typedef enum e_mcode
 	DETACH,
 }			t_mcode;
 
+typedef enum e_time_code
+{
+	SECOND,
+	MILISECOND,
+	MICROSECOND,
+}			t_time_code;
+
+typedef enum e_status
+{
+	EAT;
+	SLEEP;
+	THINK;
+	TAKE_FIRST_FORK,
+	TAKE_SECOND_FORK,
+	DEAD,
+}			t_status;
+
 /*---------------------PARSE----------------------*/
 void	print_error(char *message);
 void	parse_input(t_table *table, char **argv);
 /*---------------------TOOLS----------------------*/
 void	ft_putstr_fd(char *s, int fd);
 long	ft_atol(char *str);
+long	get_time(t_time_code time_code);
+void 	ft_usleep(long usec, t_table *table);
 /*----------------SAFE_FUNCTIONS----------------*/
 void	*protected_malloc(size_t bytes);
 void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode);
@@ -90,5 +111,7 @@ void	set_long(pthread_mutex_t *mutex, long *dest, long value);
 int		get_int(pthread_mutex_t *mutex, int *value);
 long	get_long(pthread_mutex_t *mutex, long *value);
 int		simulation_finished(t_table *table);
+/*-----------------SYNCHRO-UTILS------------------*/
+void	wait_threads(t_table *table);
 
 #endif

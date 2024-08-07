@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:28:39 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/13 23:32:24 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:05:11 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,28 @@ void	*dinner_simulation(void *data)
 	t_philo *philo;
 
 	philo = (t_philo *)data;
+	//spinlock wait_threads va a tener la simulacion en bucle hasta que la flag se setea en 1 o true
 	wait_threads(philo->table);
+	// tenemos que setear la ultima comida que hacen
+	while (!simulation_finished(philo->table))
+	{
+		//1) Estoy lleno??
+		if(philo->full)
+			break ;
+		//2) eat
+		philo_eat(philo);
+		//3) sleep
+		philo_sleep(philo);
+		//think
+		philo_think(philo)
+	}
 }
 
 void	dinner_start(t_table *table)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (table->num_limit_meals == 0)
 		return ; //vuelta al main y limpiamos
 	else if (table->philo_nbr == 1)
@@ -44,8 +58,19 @@ void	dinner_start(t_table *table)
 	else
 	{
 		while(++i < table->philo_nbr)
-			thread_handle(&table->philos[i].thread_id, dinner_sim, &table->philos[i], CREATE);
+			thread_handle(&table->philos[i].thread_id,
+				dinner_sim, &table->philos[i], CREATE);
 	}
+	// start of simulation
+	table->start_sim = get_time(MILISECOND);
+	//despues de todo esto los threads estaran listo por lo que seteamos a 1 threads ready
+	set_int(&table->mutex_table, &table->threads_ready, 1);
+	//Una vez que hemos hecho todo esto esperamos a que todos hayan terminado y hacemos un join.
+	i = -1;
+	while(++i < table->philo_nbr)
+		thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
+	//si conseguimos llegar a esta linea podemos decir que todos los filosofos han comido
+	// o lo que es lo mismo podemos decir que estan llenos (full)
 }
 /*Despues de la funcion de arriba podemos decir
 que todos los hilos han sido creados asi que podemos 

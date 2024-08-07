@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:28:27 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/29 11:34:43 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:19:24 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	philo_init(t_table *table)
 	{
 		philo = table->philos + i;
 		philo->id = i + 1;
-		philo->full = false;
+		philo->full = 0;
 		philo->meals_eaten = 0;
 		philo->table = table;
 		assign_forks(philo, table->forks, i);
@@ -56,10 +56,11 @@ void	data_init(t_table *table)
 	int	i;
 
 	i = 0;
-	table->end_sim = false;
-	table->threads_ready = false;
+	table->end_sim = 0;
+	table->threads_ready = 0;
 	table->philos = protected_malloc(sizeof(t_philo) * table->philo_nbr);
 	mutex_handle(&table->mutex_table, INIT);
+	mutex_handle(&table->write_lock, INIT);
 	table->forks = protected_malloc(sizeof(t_fork) * table->philo_nbr);
 	while (i < table->philo_nbr)
 	{
