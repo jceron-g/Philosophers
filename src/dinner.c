@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:28:39 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/07 16:05:11 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:15:49 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ pthread_create -> philo start running
 todos los philo empiezan simultaneamente
 4) Unirlo todo.
 */
-void	*dinner_simulation(void *data)
+void	*dinner_sim(void *data)
 {
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = (t_philo *)data;
 	//spinlock wait_threads va a tener la simulacion en bucle hasta que la flag se setea en 1 o true
@@ -34,15 +34,15 @@ void	*dinner_simulation(void *data)
 	while (!simulation_finished(philo->table))
 	{
 		//1) Estoy lleno??
-		if(philo->full)
+		if (philo->full)
 			break ;
-		//2) eat
 		philo_eat(philo);
-		//3) sleep
-		philo_sleep(philo);
-		//think
-		philo_think(philo)
+		print_status(SLEEP, philo);
+		ft_usleep(philo->table->time_to_sleep, philo->table);
+		//4)Think
+		philo_think(philo);
 	}
+	return (NULL);
 }
 
 void	dinner_start(t_table *table)
@@ -57,7 +57,7 @@ void	dinner_start(t_table *table)
 		// tenemos que crear esto
 	else
 	{
-		while(++i < table->philo_nbr)
+		while (++i < table->philo_nbr)
 			thread_handle(&table->philos[i].thread_id,
 				dinner_sim, &table->philos[i], CREATE);
 	}
@@ -67,7 +67,7 @@ void	dinner_start(t_table *table)
 	set_int(&table->mutex_table, &table->threads_ready, 1);
 	//Una vez que hemos hecho todo esto esperamos a que todos hayan terminado y hacemos un join.
 	i = -1;
-	while(++i < table->philo_nbr)
+	while (++i < table->philo_nbr)
 		thread_handle(&table->philos[i].thread_id, NULL, NULL, JOIN);
 	//si conseguimos llegar a esta linea podemos decir que todos los filosofos han comido
 	// o lo que es lo mismo podemos decir que estan llenos (full)

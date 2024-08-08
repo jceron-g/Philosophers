@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:52 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/29 11:45:50 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:10:02 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 		parse_input(&table, argv);
 		//2)
 		data_init(&table);
+		dinner_start(&table);
 		//3)
 		//dinner_start(&table);
 		//4) No leaks philos are full or 1 philo dies

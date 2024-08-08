@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:28:27 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/07 16:19:24 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:53:04 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ static void	philo_init(t_table *table)
 		philo->full = 0;
 		philo->meals_eaten = 0;
 		philo->table = table;
+		mutex_handle(&philo->philo_mutex, INIT);
 		assign_forks(philo, table->forks, i);
+		i++;
 	}
 }
 

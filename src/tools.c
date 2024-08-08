@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:05:40 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 09:43:17 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:39:00 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ long	get_time(t_time_code time_code)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
 	else
 		print_error("Wrong code in get_time function.\n");
+	return (127);
 }
 
 //Necesitamos poner una variable t_table pq 

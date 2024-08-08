@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 09:43:26 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 11:09:18 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int			id;
-	long		meals_eaten;
-	long		last_meal_time; // time passed from last meal
-	int			full;
-	t_fork		*first_fork;
-	t_fork		*second_fork;
-	pthread_t	thread_id; // a philo is a thread
-	t_table		*table;
+	int				id;
+	long			meals_eaten;
+	long			last_meal_time; // time passed from last meal
+	int				full;
+	t_fork			*first_fork;
+	t_fork			*second_fork;
+	pthread_t		thread_id; // a philo is a thread
+	t_table			*table;
+	pthread_mutex_t	philo_mutex; //useful for races with the monitor
 }				t_philo;
 
 struct s_table
@@ -98,6 +99,7 @@ void	ft_putstr_fd(char *s, int fd);
 long	ft_atol(char *str);
 long	get_time(t_time_code time_code);
 void	ft_usleep(long usec, t_table *table);
+void	print_status(t_status status, t_philo *philo);
 /*----------------SAFE_FUNCTIONS----------------*/
 void	*protected_malloc(size_t bytes);
 void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode);
@@ -113,5 +115,11 @@ long	get_long(pthread_mutex_t *mutex, long *value);
 int		simulation_finished(t_table *table);
 /*-----------------SYNCHRO-UTILS------------------*/
 void	wait_threads(t_table *table);
+/*-----------------ROUTINE------------------*/
+void	philo_eat(t_philo *philo);
+void	philo_think(t_philo *philo);
+/*-----------------SIMULATION------------------*/
+void	*dinner_sim(void *data);
+void	dinner_start(t_table *table);
 
 #endif
