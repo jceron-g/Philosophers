@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/07 16:22:51 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 09:43:26 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ typedef enum e_time_code
 
 typedef enum e_status
 {
-	EAT;
-	SLEEP;
-	THINK;
+	EAT,
+	SLEEP,
+	THINK,
 	TAKE_FIRST_FORK,
 	TAKE_SECOND_FORK,
 	DEAD,
@@ -97,7 +97,7 @@ void	parse_input(t_table *table, char **argv);
 void	ft_putstr_fd(char *s, int fd);
 long	ft_atol(char *str);
 long	get_time(t_time_code time_code);
-void 	ft_usleep(long usec, t_table *table);
+void	ft_usleep(long usec, t_table *table);
 /*----------------SAFE_FUNCTIONS----------------*/
 void	*protected_malloc(size_t bytes);
 void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode);

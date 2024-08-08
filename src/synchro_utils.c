@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/07 11:43:10 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/07 11:46:27 by jceron-g         ###   ########.fr       */
+/*   Created: 2024/08/06 14:02:18 by jceron-g          #+#    #+#             */
+/*   Updated: 2024/08/08 09:44:33 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	wait_threads(t_table *table)
 {
-	while(!get_int(&table->mutex_table, &table->threads_ready))
+	while (!get_int(&table->mutex_table, &table->threads_ready))
 		;
 }
