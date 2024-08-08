@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:28:39 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 11:15:49 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:44:12 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	*dinner_sim(void *data)
 	philo = (t_philo *)data;
 	//spinlock wait_threads va a tener la simulacion en bucle hasta que la flag se setea en 1 o true
 	wait_threads(philo->table);
+	//sincronizamos con el monitor
+	//incrementamos un contador de table variable con todos los hilos corriendo
+	increase_thread_num(&philo->table->mutex_table,
+		&philo->table->threads_running_num);
 	// tenemos que setear la ultima comida que hacen
 	while (!simulation_finished(philo->table))
 	{
@@ -61,6 +65,9 @@ void	dinner_start(t_table *table)
 			thread_handle(&table->philos[i].thread_id,
 				dinner_sim, &table->philos[i], CREATE);
 	}
+	// Antes de esto tenemos que monitorear nuestro codigo para 
+	//comprobar si un filosofo ha muerto o no.
+	thread_handle(&table->monitor_thread, monitor, table, CREATE);
 	// start of simulation
 	table->start_sim = get_time(MILISECOND);
 	//despues de todo esto los threads estaran listo por lo que seteamos a 1 threads ready

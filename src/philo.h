@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 11:09:18 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/08 15:30:17 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ struct s_table
 	long			start_sim;
 	int				end_sim; // When a philo dies or all philos are full
 	int				threads_ready; // Lo necesitamos para sincronizar los philo
+	long			threads_running_num;
 	pthread_mutex_t	mutex_table; // Lo necesitamos para evitar data races mientras leemos la mesa
 	pthread_mutex_t	write_lock; // Va a ser nuestro mutex para poder ir escribiendo
+	pthread_t		monitor_thread; // va a ser el hilo que nos sirva para monitorear nuestros filosofos
 	t_fork			*forks; // array to forks
 	t_philo			*philos; // array of philos
 };
@@ -115,11 +117,14 @@ long	get_long(pthread_mutex_t *mutex, long *value);
 int		simulation_finished(t_table *table);
 /*-----------------SYNCHRO-UTILS------------------*/
 void	wait_threads(t_table *table);
+void	increase_thread_num(pthread_mutex_t *mutex, long *value);
+
 /*-----------------ROUTINE------------------*/
 void	philo_eat(t_philo *philo);
 void	philo_think(t_philo *philo);
 /*-----------------SIMULATION------------------*/
 void	*dinner_sim(void *data);
 void	dinner_start(t_table *table);
-
+/*-----------------MONITORING------------------*/
+void	*monitor(void *data);
 #endif

@@ -6,7 +6,7 @@
 #    By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 15:54:56 by jceron-g          #+#    #+#              #
-#    Updated: 2024/08/08 12:15:20 by jceron-g         ###   ########.fr        #
+#    Updated: 2024/08/08 15:45:30 by jceron-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,9 @@ BLUE      = \033[34;1m
 CYAN      = \033[37;1m
 RED		  = \033[31;1m
 
-SRC_FILES = dinner get_and_set init main parse protected_functions routine synchro_utils tools utils
+SRC_FILES = dinner get_and_set init main monitoring \
+		parse protected_functions routine synchro_utils \
+		tools utils
 
 SRC = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
