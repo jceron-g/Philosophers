@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:05:40 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 11:39:00 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 10:51:30 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ long	get_time(t_time_code time_code)
 	return (127);
 }
 
-//Necesitamos poner una variable t_table pq 
-//necesitamos acceder a ver si la variable simulation_finished
 void	ft_usleep(long usec, t_table *table)
 {
 	long	start;
@@ -44,7 +42,6 @@ void	ft_usleep(long usec, t_table *table)
 			break ;
 		elapsed = get_time(MICROSECOND) - start;
 		remaining = usec - elapsed;
-		//to get a spinlock threshold
 		if (remaining > 1e3)
 			usleep(remaining / 2);
 		else
@@ -53,4 +50,21 @@ void	ft_usleep(long usec, t_table *table)
 				;
 		}
 	}
+}
+
+void	clean_table(t_table *table)
+{
+	t_philo	*philo;
+	int		i;
+
+	i = -1;
+	while (++i < table->philo_nbr)
+	{
+		philo = table->philos + i;
+		mutex_handle(&philo->philo_mutex, DESTROY);
+	}
+	mutex_handle(&table->write_lock, DESTROY);
+	mutex_handle(&table->mutex_table, DESTROY);
+	free(table->forks);
+	free(table->philos);
 }

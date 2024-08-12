@@ -6,14 +6,14 @@
 #    By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/28 15:54:56 by jceron-g          #+#    #+#              #
-#    Updated: 2024/08/08 15:45:30 by jceron-g         ###   ########.fr        #
+#    Updated: 2024/08/12 09:52:18 by jceron-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 USER = jceron-g
 CC = clang -g
-CFLAGS = -Wextra -Wall -Werror -pthread -fsanitize=thread
+CFLAGS = -Wextra -Wall -Werror
 SRC_DIR = src/
 OBJ_DIR = obj/
 

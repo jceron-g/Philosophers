@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:52 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 11:10:02 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 10:50:20 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,10 @@ int	main(int argc, char **argv)
 
 	if (argc == 5 | argc == 6)
 	{
-		//correct input
-		//esta funcion mira errors checking, filling table table
 		parse_input(&table, argv);
-		//2)
 		data_init(&table);
 		dinner_start(&table);
-		//3)
-		//dinner_start(&table);
-		//4) No leaks philos are full or 1 philo dies
-		//clean(&table);
+		clean_table(&table);
 	}
 	else
 		print_error("Wrong input.\n");

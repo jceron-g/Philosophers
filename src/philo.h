@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 15:30:17 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 10:48:10 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ struct s_table
 	long			threads_running_num;
 	pthread_mutex_t	mutex_table; // Lo necesitamos para evitar data races mientras leemos la mesa
 	pthread_mutex_t	write_lock; // Va a ser nuestro mutex para poder ir escribiendo
-	pthread_t		monitor_thread; // va a ser el hilo que nos sirva para monitorear nuestros filosofos
+	pthread_t		monitor_thread;
 	t_fork			*forks; // array to forks
 	t_philo			*philos; // array of philos
 };
@@ -102,6 +102,8 @@ long	ft_atol(char *str);
 long	get_time(t_time_code time_code);
 void	ft_usleep(long usec, t_table *table);
 void	print_status(t_status status, t_philo *philo);
+void	clean_table(t_table *table);
+
 /*----------------SAFE_FUNCTIONS----------------*/
 void	*protected_malloc(size_t bytes);
 void	mutex_handle(pthread_mutex_t *mutex, t_mcode mcode);
@@ -118,10 +120,14 @@ int		simulation_finished(t_table *table);
 /*-----------------SYNCHRO-UTILS------------------*/
 void	wait_threads(t_table *table);
 void	increase_thread_num(pthread_mutex_t *mutex, long *value);
+int		threads_running(pthread_mutex_t *mutex, long *threads, long philo_num);
+void 	de_synchro_philos(t_philo *philo);
+
 
 /*-----------------ROUTINE------------------*/
 void	philo_eat(t_philo *philo);
-void	philo_think(t_philo *philo);
+void	philo_think(t_philo *philo, int pre_simulation);
+void	*one_philo(void *data);
 /*-----------------SIMULATION------------------*/
 void	*dinner_sim(void *data);
 void	dinner_start(t_table *table);

@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 17:28:27 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/08 15:21:15 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 10:50:01 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,6 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int pos)
 	int	philo_number;
 
 	philo_number = philo->table->philo_nbr;
-	/*Tenemos que tener en cuenta los deadlocks es decir los casos
-	en los que los filosofos se quedarian colgando esperando a tomar
-	el otro tenedor pero no haya. Un ejemplo es el caso de simetria en
-	el que por ejemplo todos los filosofos cojan a la vez el tenedor izquierdo
-	por poner. Se quedarían esperando a tomar el tenedor de su derecha pero no 
-	habrá porque el filosofo de al lado habrá cogido el tenedor de la izquierda
-	En este codigo para evitar este error se usara el arreglo par/impar
-	aprox min 50.*/
 	philo->first_fork = &forks[(pos + 1) % philo_number];
 	philo->second_fork = &forks[pos];
 	if (philo->id % 2 == 0)
