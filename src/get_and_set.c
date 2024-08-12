@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:36:15 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/06 13:38:04 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:02:39 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ int	simulation_finished(t_table *table)
 {
 	return (get_int(&table->mutex_table, &table->end_sim));
 }
-

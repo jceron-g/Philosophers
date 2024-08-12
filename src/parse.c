@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:24:12 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/07/10 18:21:06 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:02:27 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_input(t_table *table, char **argv)
 {
 	table->philo_nbr = ft_atol(argv[1]);
-	table->time_to_die = ft_atol(argv[2]) * 1000; //has to be changed for the usleep function
+	table->time_to_die = ft_atol(argv[2]) * 1000;
 	table->time_to_eat = ft_atol(argv[3]) * 1000;
 	table->time_to_sleep = ft_atol(argv[4]) * 1000;
 	if (table->time_to_die < 60000

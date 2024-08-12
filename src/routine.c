@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:16:44 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/12 10:59:35 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/12 11:04:35 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	print_status(t_status status, t_philo *philo)
 		printf("\033[0;31m%ld  %d died\n\033[0m", elapsed, philo->id);
 	mutex_handle(&philo->table->write_lock, UNLOCK);
 }
-
 
 void	philo_eat(t_philo *philo)
 {
@@ -67,7 +66,6 @@ void	philo_think(t_philo *philo, int pre_simulation)
 		t_think = 0;
 	ft_usleep(t_think * 0.42, philo->table);
 }
-
 
 void	*one_philo(void *data)
 {
