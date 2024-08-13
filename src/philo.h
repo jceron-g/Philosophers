@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 13:02:31 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/12 11:09:54 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:33:58 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,7 @@ typedef enum e_status
 }			t_status;
 
 /*---------------------PARSE----------------------*/
-void	print_error(char *message);
-void	parse_input(t_table *table, char **argv);
+int		parse_input(t_table *table, char **argv);
 /*---------------------TOOLS----------------------*/
 void	ft_putstr_fd(char *s, int fd);
 long	ft_atol(char *str);

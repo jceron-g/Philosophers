@@ -6,58 +6,60 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 12:40:39 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/07 16:06:01 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:37:54 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putstr_fd(char *s, int fd)
+static int	is_number(char c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
+	if (c < '0' || c > '9')
 	{
-		write(fd, &s[i], 1);
-		i++;
+		printf("Error: Argument must be a number\n");
+		return (1);
 	}
+	return (0);
 }
 
-void	print_error(char *message)
+static int	check_num(long num)
 {
-	ft_putstr_fd(message, 2);
-}
-
-static void	check_limits(long number)
-{
-	if (number < -2147483648 || number > 2147483647)
-		print_error("Write a valid number within the range, please.\n");
+	if (num > 2147483647)
+	{
+		printf("Argument can't be maximum int\n");
+		return (1);
+	}
+	if (num < 0)
+	{
+		printf("Argument must be positive\n");
+		return (1);
+	}
+	return (0);
 }
 
 long	ft_atol(char *str)
 {
-	int		i;
-	long	result;
-	long	sign;
+	long	num;
+	int		sign;
 
-	i = 0;
-	result = 0;
+	num = 0;
 	sign = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		if (str[i] == '-')
+		if (*str == '-')
 			sign *= -1;
-		if (str[i + 1] > '9' || str[i + 1] < '0')
-			print_error("Do not use double signs please.\n");
-		i++;
+		str++;
 	}
-	while (str[i] >= '0' && str[i] <= '9')
-		result = (result * 10) + (str[i++] - '0');
-	if (str[i] != '\0')
-		print_error("Use only numbers please.\n");
-	check_limits(sign * result);
-	return (sign * result);
+	if (is_number(*str))
+		return ((long)-2);
+	while (*str >= '0' && *str <= '9')
+	{
+		num = num * 10 + *str - '0';
+		str++;
+	}
+	if (check_num(num * sign))
+		return ((long)-2);
+	return (num);
 }

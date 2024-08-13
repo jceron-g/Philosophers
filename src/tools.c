@@ -6,7 +6,7 @@
 /*   By: jceron-g <jceron-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 16:05:40 by jceron-g          #+#    #+#             */
-/*   Updated: 2024/08/12 10:51:30 by jceron-g         ###   ########.fr       */
+/*   Updated: 2024/08/13 12:33:36 by jceron-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long	get_time(t_time_code time_code)
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
-		print_error("Gettimeofday error.\n");
+		printf("Gettimeofday error.\n");
 	if (time_code == SECOND)
 		return (tv.tv_sec + (tv.tv_usec / 1e6));
 	else if (time_code == MILISECOND)
@@ -25,7 +25,7 @@ long	get_time(t_time_code time_code)
 	else if (time_code == MICROSECOND)
 		return ((tv.tv_sec * 1e6) + tv.tv_usec);
 	else
-		print_error("Wrong code in get_time function.\n");
+		printf("Wrong code in get_time function.\n");
 	return (127);
 }
 
